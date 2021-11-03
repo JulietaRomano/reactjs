@@ -1,6 +1,5 @@
 import {Navbar, Nav,Container} from 'react-bootstrap'
-import ItemListContainer from '../ItemListContainer/ItemListContainer';
-
+import CartWidget from '../CartWidget/CartWidget'
 function NavBar() {
     return (
       <Navbar bg="light" expand="lg">
@@ -13,7 +12,7 @@ function NavBar() {
                 <Nav.Link href="#link">New Arrivals</Nav.Link>
                 <Nav.Link href="#link">Shop</Nav.Link>
                 <Nav.Link href="#link">Contact</Nav.Link>
-                <ItemListContainer/>
+                <CartWidget/>
             </Nav> 
           </Navbar.Collapse>
         </Container>

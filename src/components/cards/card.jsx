@@ -1,8 +1,6 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import PropTypes  from 'prop-types'
-import './card.css'
-
 
 const Cards = ({titulo, imagen, precio}) => {
 
