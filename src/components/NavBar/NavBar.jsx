@@ -1,27 +1,23 @@
-
-import Nav from 'react-bootstrap/Nav'
+import {Navbar, Nav,Container} from 'react-bootstrap'
+import ItemListContainer from '../ItemListContainer/ItemListContainer';
 
 function NavBar() {
     return (
-        <Nav
-        activeKey="/home"
-        onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-      >
-        <Nav.Item>
-          <Nav.Link href="/home">Juanita</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-1">Temporada Actual</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-2">Outlet</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-3" >
-            Locales
-          </Nav.Link>
-        </Nav.Item>
-      </Nav>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand href="#home">Juanita</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto ">
+              <Nav.Link href="#home">Inicio</Nav.Link>
+                <Nav.Link href="#link">New Arrivals</Nav.Link>
+                <Nav.Link href="#link">Shop</Nav.Link>
+                <Nav.Link href="#link">Contact</Nav.Link>
+                <ItemListContainer/>
+            </Nav> 
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     );
   }
   export default NavBar;

@@ -11,7 +11,6 @@ const cardArray = [
         id:1,
         imagen: image1,
         precio: 6000,
-
     },
     {
         producto:'Campera',
