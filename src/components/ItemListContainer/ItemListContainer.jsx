@@ -1,11 +1,11 @@
 import React from 'react'
-import Tarjetas from '../Cards/cards'
+import Tarjetas from '../Items/Items'
 import ItemCount from '../ItemCount/ItemCount';
 
 const ItemListContainer = () =>{
-   
+
     return <>
-            <ItemCount initial={0} stock={8} onAdd={1}/>
+            <ItemCount initial={0} stock={8}/>
             <Tarjetas/>
         </>
 }

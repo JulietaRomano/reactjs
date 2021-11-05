@@ -2,12 +2,12 @@ import React from 'react'
 
 import { useState } from 'react'
 
-const ItemCount= ({initial,stock,onAdd}) => {
+const ItemCount= ({initial,stock}) => {
 
     const [contador,setContador]=useState(initial);
     
     const itemAdd = ()=>{
-        contador<=stock ? setContador(contador+onAdd) : console.warn('No hay stock')
+        contador<=stock ? setContador(contador+1) : console.warn('No hay stock')
     };
     const itemSubstract = ()=>{
         contador===0? console.warn('No hay items seleccionados'): setContador(contador-1)
