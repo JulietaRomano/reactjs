@@ -1,6 +1,8 @@
-import Tarjeta from '../ItemListContainer/Cards'
 
-const ItemList = ({products})=>{
+ import Tarjeta from './ItemsCard'
+
+ 
+const ItemCard = ({products})=>{
 
     return(
         <>
@@ -15,5 +17,7 @@ const ItemList = ({products})=>{
         </>
     )
 }
-export default ItemList
+export default ItemCard
+
+
 

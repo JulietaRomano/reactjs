@@ -1,10 +1,24 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import {getFetch} from './getFetch'
-import ItemList from './ItemList';
+import products from '../Items/Products'
+import ItemList from'../Items/ItemList'
 
+const getFetch = new Promise((res,rej)=>{
+    const condicion = true;
+    if (condicion){
+        setTimeout(()=>{
+            res(products)
 
-const Items = () => {
+        },2000)
+    }
+    else{
+        setTimeout(()=>{
+            rej('error')
+        },2000)
+    };
+});
+
+const ItemListContainer = () => {
     const [products, setProductos] = useState([]);
     useEffect(()=>{
         getFetch
@@ -28,4 +42,4 @@ const Items = () => {
     )
 }
 
-export default Items
+export default ItemListContainer

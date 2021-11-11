@@ -1,6 +1,5 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-import PropTypes  from 'prop-types'
 
 
 const Cards = ({titulo, imagen, precio}) => {
@@ -18,9 +17,5 @@ const Cards = ({titulo, imagen, precio}) => {
     )
 }
 
-Cards.propTypes={
-    titulo: PropTypes.string.isRequired,
-    imagen: PropTypes.string.isRequired
-}
 
 export default Cards
