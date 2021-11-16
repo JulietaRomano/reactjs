@@ -4,23 +4,19 @@ import {Link} from 'react-router-dom'
 function NavBar() {
     return (
       <Navbar bg="light" expand="lg">
-        <Container>
-          <Navbar.Brand href="#home">Juanita</Navbar.Brand>
+        <Container >
+          <Navbar.Brand href="#home" className="logo">Juanita</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto ">
-              <Nav.Link href="#home">Inicio</Nav.Link>
+            <Nav className="me-auto menu">
                 <Link to='/'>
-                  <Nav.Link href="/">Shop</Nav.Link>
+                  <Nav className='navItem'>Inicio</Nav>
                 </Link>
                 <Link to='categoria/abrigos'>
-                  <Nav.Link href="abrigos">Abrigos</Nav.Link>
+                  <Nav className='navItem'>Abrigos</Nav>
                 </Link>
                 <Link to='categoria/pantalones'>
-                  <Nav.Link href="pantalones">Pantalones</Nav.Link>
-                </Link>
-                <Link to='detail'>
-                  <Nav.Link href="detail">Detalle</Nav.Link>
+                  <Nav className='navItem'>Pantalones</Nav>
                 </Link>
                 <CartWidget/>
             </Nav> 

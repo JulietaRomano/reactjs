@@ -1,8 +1,8 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-
-
-const Cards = ({titulo, imagen, precio}) => {
+import ItemCount from '../ItemCount/ItemCount'
+import {Link} from 'react-router-dom'
+const Cards = ({titulo, imagen, precio,id}) => {
     return (
         <div>
             <Card className='text-center tarjetas'>
@@ -10,7 +10,10 @@ const Cards = ({titulo, imagen, precio}) => {
                 <Card.Body>
                     <Card.Title>{titulo}</Card.Title>
                     <Card.Text>${precio}</Card.Text>
-                    <button className='btn btn-outline-secondary'>Comprar</button>
+                    <ItemCount/>
+                    <Link to={`detail/${id}`}>
+                    <button className='btn btn-outline-secondary'>Detalle</button>
+                    </Link>
                 </Card.Body>
             </Card>
         </div>

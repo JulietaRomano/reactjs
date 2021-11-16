@@ -5,7 +5,7 @@ import ItemList from'../Items/ItemList'
 import { useParams } from 'react-router'
 
 
-const getFetch = new Promise((res,rej)=>{
+const getFetch = new Promise((res)=>{
         setTimeout(()=>{
             res(products)
 
@@ -14,26 +14,38 @@ const getFetch = new Promise((res,rej)=>{
 });
 
 const ItemListContainer = () => {
-    const [products, setProductos] = useState([]);
+    const [productos, setProductos] = useState([]);
     const {categoriaID}= useParams()
-    console.log(categoriaID)
-
     useEffect(()=>{
-        getFetch
+        if(categoriaID){
+            getFetch
         .then(resultado =>{
-                setProductos(resultado)
+                setProductos(resultado.filter(prod=> prod.categoria===categoriaID))
+        })
+        
+        .catch(err=>{
+            console.log(err)
+        })
+        .finally(()=> console.log('carga completa'))
+    }
+    else{
+        getFetch
+        .then(res=>{
+            setProductos(res)
         })
         .catch(err=>{
             console.log(err)
         })
         .finally(()=> console.log('carga completa'))
-    },[]);
+
+    }
+    },[categoriaID]);
 
     return (
         <div className='container d-flex justify-content-center w-100 '>
             <div className='row'> 
                 {
-                    <ItemList products={products}/>
+                    <ItemList productos={productos}/>
                 }
             </div>
             

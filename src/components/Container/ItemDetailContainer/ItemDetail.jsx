@@ -7,7 +7,7 @@ const ItemDetail = ({producto})=>{
         <>
         {
             <div className='col-md-4' key={producto.id}>
-                <Tarjeta titulo={producto.producto} imagen={producto.imagen} precio={producto.precio}/>
+                <Tarjeta titulo={producto.producto} imagen={producto.imagen} precio={producto.precio} id={producto.id}/>
             </div>
         }
         </>

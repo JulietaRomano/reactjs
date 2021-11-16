@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import listaProductos from '../../Items/Products';
 import ItemDetail from './ItemDetail';
+import { useParams } from 'react-router'
 
 const getFetchDetail = new Promise((res,rej)=>{
     const condicion = true;
@@ -19,17 +20,21 @@ const getFetchDetail = new Promise((res,rej)=>{
 
 function ItemDetailContainer() {
     const[productoInicial,setProductoInicial]= useState([]);
+    const {productoID}= useParams()
+
     useEffect(() =>{
-        getFetchDetail
+        if(productoID){
+            getFetchDetail
             .then(resultado=>{
-                setProductoInicial(resultado[1])
+                setProductoInicial(resultado.find(prod=>prod.id=== parseInt(productoID)))
             })
             .catch(err=>{
                 console.warn('error')
             })
-    });
+        }
+        
+    },[productoID]);
 
-    console.log(productoInicial)
     return (
         <div>
             <div className='container d-flex justify-content-center w-100 '>
