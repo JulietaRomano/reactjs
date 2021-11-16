@@ -1,5 +1,5 @@
  
-## Tecnologías 😊😊
+## Tecnologías usadas😊😊
 
 - Javascript EMAS6
 - JSX
