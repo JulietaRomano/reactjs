@@ -8,18 +8,21 @@ import image3 from'../assets/traje3.jpg'
         id:1,
         imagen: image1,
         precio: 6000,
+        categoria:'abrigos'
     },
     {
         producto:'Campera',
         id:2,
         imagen: image2,
         precio: 8000,
+        categoria:'abrigos'
     },
     {
         producto:'Pantalon',
         id:3,
         imagen: image3,
         precio: 4500,
+        categoria:'pantalones'
     }
 ];
 export default listaProductos

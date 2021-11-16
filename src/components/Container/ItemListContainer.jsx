@@ -2,24 +2,22 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import products from '../Items/Products'
 import ItemList from'../Items/ItemList'
+import { useParams } from 'react-router'
+
 
 const getFetch = new Promise((res,rej)=>{
-    const condicion = true;
-    if (condicion){
         setTimeout(()=>{
             res(products)
 
         },2000)
-    }
-    else{
-        setTimeout(()=>{
-            rej('error')
-        },2000)
-    };
+    
 });
 
 const ItemListContainer = () => {
     const [products, setProductos] = useState([]);
+    const {categoriaID}= useParams()
+    console.log(categoriaID)
+
     useEffect(()=>{
         getFetch
         .then(resultado =>{
@@ -28,6 +26,7 @@ const ItemListContainer = () => {
         .catch(err=>{
             console.log(err)
         })
+        .finally(()=> console.log('carga completa'))
     },[]);
 
     return (
