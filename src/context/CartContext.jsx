@@ -1,69 +1,40 @@
-import React,{useContext, createContext, useState} from "react";
+import React, { useContext, useState } from 'react';
+
+export const CartContext = React.createContext();
+
+export const useCartContext = () => useContext(CartContext);
+
+export default function CartProvider({ children, defaultCart }) {
+    const [cart, setCart] = useState([]);
+    const [cantItems, setcantItems] = useState(0);
 
 
-export const CartContext = createContext([]);
-export const useCartContext = () => useContext(CartContext) ;
+    function addToCart(item, qnt) {
 
-const CartProvider = ({children}) => {
-  
-    const [cartList, setCartList] = useState([]);
-    const [counter, setCounter] = useState(0); 
-    const [totalCart, setTotalCart] = useState(0);
+        if (cart.length !== 0) {
+            let aux = cart.findIndex(obj => { return obj.item.id === item.id; })
+            if (aux !== -1) {
+                const newCart = cart;
+                newCart[aux].cant = newCart[aux].cant + qnt;
+                setCart(newCart);
+            }
+            else setCart([...cart, { item, cant: qnt }]);
+        }
+        else setCart([{ item, cant: qnt }]);
 
-    const totalCartWidget = () => {
-        setTotalCart(totalCart + counter)
-    };
-
-    const addProduct = (product, counter) => {
-      
-       if(estaEnCarrito(product)){
-        const newCart= cartList;
-            newCart.each( productItem=> {
-                if(productItem.id===product.id){
-                    productItem.counter += counter;
-                    return productItem
-                }
-            });
-            setCartList(newCart)
-       }
-       else{
-           setCartList([...cartList,{...product,counter}])
-       }
-       setTotalCart(totalCart + counter);
-        setCounter(0);
-        totalPrice();
+        setcantItems(cantItems + qnt);
     }
 
-    const totalPrice = () => {
-        return cartList.reduce((acum, valor) => (acum + (valor.counter * valor.price)), 0);
-    };
-
-    const removeProduct = (id) =>{
-        setCartList(cartList.filter(item => item.id !== id));
-    }
-    const clearProducts = () =>{
-        setCartList([]);
+    function removeFromCart(itemID, qnt) {
+        setCart(cart.filter(obj => obj.item.id !== itemID));
+        setcantItems(cantItems - qnt);
     }
 
-    const estaEnCarrito = (item)=>{
-        return cartList.some(cartItem => cartItem.id === item.id)
+    function clearCart() {
+        setCart(defaultCart);
+        setcantItems(0);
     }
 
-    
-    return<CartContext.Provider value={{
-        cartList,
-        removeProduct,
-        clearProducts,
-        addProduct,
-        counter,
-        setCounter,
-        totalPrice,
-        totalCartWidget,
-        totalCart,
-    }}
-    >
-    {children}
+    return <CartContext.Provider value={{ cart, cantItems, addToCart, removeFromCart, clearCart }}> {children}
     </CartContext.Provider>
-    
 }
-export default CartProvider

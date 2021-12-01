@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import React,{ useState } from 'react';
 import Card from 'react-bootstrap/Card'
 import ItemCount from '../ItemCount/ItemCount'
 import {Link} from 'react-router-dom'
-const Cards = ({titulo, imagen, precio,id}) => {
+import { useCartContext } from '../../context/CartContext';
+
+
+const Cards = ({titulo, imagen, precio,id, prod }) => {
+
     const [clicked, setclicked] = useState(false);
+    const { addToCart } = useCartContext();
 
     let available = 10;
 
-    const handleAdd = (contador) => {
-        // return (evt) => {
-        //     evt.stopPropagation();
-        //     if (contador <= available && contador > 0) {
-        //         setclicked(true);
-        //     }
-        //     else alert("Por favor quite items");
-        // }
-        console.log(contador)
-        setclicked(true)
+    const handleAdd = (counter) => {
+        return (evt) => {
+            evt.stopPropagation();
+            if (counter <= available && counter > 0) {
+                addToCart(prod, counter);
+                setclicked(true);
+            }
+            else alert("Por favor quite items");
+        }
     }
+
+
 
     return (
         <div>
