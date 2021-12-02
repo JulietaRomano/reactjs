@@ -1,40 +1,93 @@
-import React, { useContext, useState } from 'react';
-
-export const CartContext = React.createContext();
-
-export const useCartContext = () => useContext(CartContext);
-
-export default function CartProvider({ children, defaultCart }) {
-    const [cart, setCart] = useState([]);
-    const [cantItems, setcantItems] = useState(0);
+import React,{createContext,useState,useEffect} from "react";
+export const CartContext = createContext ([]);
 
 
-    function addToCart(item, qnt) {
+const CartContextProvider = ({children}) => {
 
-        if (cart.length !== 0) {
-            let aux = cart.findIndex(obj => { return obj.item.id === item.id; })
-            if (aux !== -1) {
-                const newCart = cart;
-                newCart[aux].cant = newCart[aux].cant + qnt;
-                setCart(newCart);
-            }
-            else setCart([...cart, { item, cant: qnt }]);
-        }
-        else setCart([{ item, cant: qnt }]);
+     const [carList, setCarList] = useState([]);
+     const [montoTotal, setMontoTotal] = useState(0);
+     const [itemsCarrito, setItemsCarrito] = useState(0);
 
-        setcantItems(cantItems + qnt);
-    }
+     useEffect(() => {
+          cantCarrito()
+          // eslint-disable-next-line
+     }, [carList])
 
-    function removeFromCart(itemID, qnt) {
-        setCart(cart.filter(obj => obj.item.id !== itemID));
-        setcantItems(cantItems - qnt);
-    }
+     //Suma
+     const SumaCart = (item,count) => {
+          const newCarList=[];
+          carList.forEach(element => {
+               if (element.id !== item.id) {
+                    newCarList.push(element)
+               } else {
+                    if (element.cantidad+count <= element.stock) {
+                         element.cantidad+=count;
+                         newCarList.push(element);
+                         setCarList(newCarList);
+                    } else {
+                         element.cantidad=element.stock;
+                         newCarList.push(element);
+                         setCarList(newCarList);
+                    }
+               }
+          })
+     }
+     const cantCarrito = () => {
+          let acum=0;
+          carList.forEach(element => {
+               acum+=element.cantidad; 
+          });
+          setItemsCarrito(acum);
+     }
+     //Agregar al carrito
 
-    function clearCart() {
-        setCart(defaultCart);
-        setcantItems(0);
-    }
+     const agregaCarrito=(item,count)=> {
+          const indexItem = carList.findIndex(unProducto => unProducto.id === item.id)
+          if (indexItem === -1) {
+               console.log ('agregué un producto')
+               setCarList([...carList,item])
+          } else {
+               console.log ('sumé un producto')
+               SumaCart(item,count)
+          }
+          console.log (carList);
+     }
 
-    return <CartContext.Provider value={{ cart, cantItems, addToCart, removeFromCart, clearCart }}> {children}
-    </CartContext.Provider>
+     //Remover item
+     const removeItem =(id)=>{
+          setCarList (carList.filter(unItem => unItem.id !== id ));
+     }
+
+     //Limpiar carrito
+     const clearCarrito =()=>{
+          setCarList([]);
+     }
+
+     //Total de la compra
+     const totalCompra=()=> {
+          let acum=0;
+          carList.forEach(elemento => {
+               acum+=elemento.precio*elemento.cantidad;
+          });
+          setMontoTotal(acum);
+          return montoTotal;
+     }
+
+     
+     return (
+          <CartContext.Provider value={{
+               carList,
+               montoTotal,
+               itemsCarrito,
+               setCarList,
+               agregaCarrito,
+               removeItem,
+               clearCarrito,
+               totalCompra
+          }}>
+               {children}
+          </CartContext.Provider>
+     )
 }
+
+export default CartContextProvider
