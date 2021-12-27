@@ -81,16 +81,23 @@ body {
   border: solid rgb(246, 82, 76);
   margin-right: 3rem;
 }
+.botonVerde{
+  background-color: rgb(112, 218, 126);
+  border: solid rgb(112, 218, 126);
+}
 
 /*Carrito*/
-.carrito{
-  border: rgb(84, 200, 37) solid;
-}
+
 .carritoTittle{
   text-align: center;
   padding: 2rem;
 }
-
+.irCarrito{
+  display: flex;
+  justify-content: space-around;
+  width: 45%;
+  margin: auto;
+  }
 /*itemdetail*/
 .itemDetail {
   width: 100%;

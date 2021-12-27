@@ -35,9 +35,16 @@ const ItemDetail = ({prod}) => {
                               </Card.Text>
                               {
                                    clicked ? (
-                                   <Link to="/cart">
-                                        <button className="btn botones"> Ir al carrito </button>
-                                   </Link>
+                                   <>
+                                        <div className="irCarrito">
+                                             <Link to="/">
+                                                  <button className="btn botones"> Seguir comprando </button>
+                                             </Link>
+                                             <Link to="/cart">
+                                                  <button className="btn botonVerde"> Ir al carrito </button>
+                                             </Link>
+                                        </div>
+                                   </>
                                    )
                                    : (
                                         <ItemCount initial={1} stock={stock} onAdd={onAdd}/>

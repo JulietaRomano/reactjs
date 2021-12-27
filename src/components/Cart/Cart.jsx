@@ -1,6 +1,6 @@
 import React,{ useContext, useState, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
-import { Table, Button} from "react-bootstrap";
+import { Table, Button, Form, Container, Col } from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert'
 import { Link } from 'react-router-dom';
 import { getFireStore } from '../../services/getFirestore'
@@ -12,6 +12,10 @@ function Cart() {
      const [contiene, setContiene] = useState(false)
      const [alerta, setAlerta] = useState(false)
      const [idCompra,setIdCompra] = useState('')
+     const [nombreCompleto, setNombreCompleto] = useState('')
+     const [telefono, setTelefono] = useState('')
+     const [email, setEmail] = useState('')
+     const [email2, setEmail2] = useState('')
 
      //Remover item
      const handleRemove=(id)=>{
@@ -25,6 +29,16 @@ function Cart() {
      const contieneCarList = () => {
           carList.length === 0 ? setContiene(false) :  setContiene(true);          
      }
+     const validateDates = () =>{
+          let aux;
+          if ((email.toUpperCase()===email2.toUpperCase() && email!=='') && telefono!=='' && nombreCompleto!== '') {
+               aux=true;
+          } else {
+               aux=false;
+          }
+          return aux;
+     }
+
 
      const ordenDeCompra=()=>{
           const orden={};
@@ -63,6 +77,14 @@ function Cart() {
                     <Alert variant="success">
                          <Alert.Heading> Transaccion exitosa</Alert.Heading>
                          <p>Gracias por tu compra</p>
+                         <hr />
+                         <p className="mb-0">
+                              RESUMEN DE TUS DATOS <br/>
+                              Nombre: {nombreCompleto} <br/>
+                              Teléfono: {telefono} <br/>
+                              Email: {email} <br/>
+                              <b> Codigo de verificación de la compra {idCompra} </b> <br/>
+                         </p>
                          <Link to ="/"><button className='btn botones'>Ir a la pagina principal </button></Link>
                     </Alert> :
                     <div className='carrito'>
@@ -102,7 +124,44 @@ function Cart() {
                                              </tbody>
                                         </Table>
                                         <Button variant="btn vaciarCarr" onClick={()=>handleRemoveAll()}> Vaciar Carrito </Button>
-                                        <Button variant="btn botones" onClick={()=>ordenDeCompra()}> Finalizar la compra </Button>
+
+
+
+                                        <hr className="my-4"/>
+                                        <Container fluid className="d-flex justify-content-center">
+                                             <Col md={4} className="border border-secondary m-3 p-3">
+                                                  <h4>Datos del Comprador</h4>
+                                                  <hr className="my-4"/>
+                                                  <Col md={12} className="p-2 d-flex justify-content-center">
+                                                       <Form >
+                                                            <Form.Group className="xs mb-3" controlId="formBasicName">
+                                                                 <Form.Label className="text-center"><small>Ingrese su nombre</small></Form.Label>
+                                                                 <Form.Control className="text-center" type="text" placeholder="Juana Romano" value={nombreCompleto} onChange={event=>setNombreCompleto(event.target.value)}/>
+                                                            </Form.Group>
+                                                            <Form.Group className="md mb-3" controlId="formBasicPhone">
+                                                                 <Form.Label className="text-center"><small>Ingrese su Telefono</small></Form.Label>
+                                                                 <Form.Control className="md text-center" type="text" placeholder="xx-xxxx-xxxx" value={telefono} onChange={event=>setTelefono(event.target.value)} />
+                                                            </Form.Group>
+                                                            <Form.Group className="xs mb-3" controlId="formBasicEmail">
+                                                                 <Form.Label className="text-center"><small>Ingrese su Email</small></Form.Label>
+                                                                 <Form.Control className="xs text-center" type="text" placeholder="juanar@gmail.com" value={email} onChange={event=>setEmail(event.target.value)}/>
+                                                            </Form.Group>
+                                                            <Form.Group className="xs mb-3" controlId="formBasicEmail2">
+                                                                 <Form.Control className="xs text-center" type="text" placeholder="juanar@gmail.com" value={email2} onChange={event=>setEmail2(event.target.value)}/>
+                                                            </Form.Group>
+                                                       </Form>    
+                                                  </Col>  
+                                             </Col>
+                                        </Container>
+                                        <Button variant="btn botones" onClick={ () => {
+                                             if (validateDates()) {
+                                                  ordenDeCompra()
+                                             } else {
+                                                  // pushea el render al link /error
+                                                  alert('/Error');
+                                             }}}>Finalizar la compra
+                                        </Button>
+
                                    </>    
                               ) : <>
                                         <h2>El carrito se encuentra vacío</h2>
